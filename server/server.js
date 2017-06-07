@@ -13,18 +13,18 @@ require('dotenv').config();
 const app = express();
 
 // Connect to mongoose
+mongoose.Promise = require('bluebird');
 mongoose.connect(databaseUrl);
 
-// Server static files 
+// Serve static files 
 const staticFiles = express.static(path.join(__dirname, '../../client/build'));
 app.use(staticFiles);
-
 
 // Configure middleware
 app.use(morgan('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(session({ secret: 'wolololo', resave: false, saveUninitialized: true }));
+app.use(session({ secret: process.env.SESSSECRET, resave: false, saveUninitialized: true }));
 app.use(passport.initialize());
 app.use(passport.session());
 
