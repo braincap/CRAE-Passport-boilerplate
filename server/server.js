@@ -10,6 +10,7 @@ import router from './router';
 import { databaseUrl } from './config/auth';
 
 require('dotenv').config();
+import configAuth from './config/auth';
 const app = express();
 
 // Connect to mongoose
@@ -24,7 +25,7 @@ app.use(staticFiles);
 app.use(morgan('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(session({ secret: process.env.SESSSECRET, resave: false, saveUninitialized: true }));
+app.use(session({ secret: configAuth.sessionSecret, resave: false, saveUninitialized: true }));
 app.use(passport.initialize());
 app.use(passport.session());
 
