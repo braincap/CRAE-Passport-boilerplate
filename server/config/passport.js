@@ -55,7 +55,7 @@ passport.use(new TwitterStrategy({
         newUser.photo = profile.photos[0].value || `http://identicon.org?t=${profile.id}&s=256`;
         newUser.save(function (err) {
           if (err) { throw err; }
-          req.session.access_token = tokenForUser(user);
+          req.session.access_token = tokenForUser(newUser);
           return done(null, newUser);
         });
       }
